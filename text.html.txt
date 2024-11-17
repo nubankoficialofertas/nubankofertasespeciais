@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Formulário</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+    <h1>Formulário de Contato</h1>
+    <form id="contact-form">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Mensagem:</label><br>
+        <textarea id="message" name="message" required></textarea><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        // Inicializa o EmailJS
+        emailjs.init("jVdn1GUkCc7Ji-EPk"); // Substitua 'your_user_id' pelo seu ID de usuário no EmailJS
+
+        // Função para enviar o formulário
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var message = document.getElementById("message").value;
+
+            var templateParams = {
+                name: name,
+                email: email,
+                message: message
+            };
+
+            emailjs.send('service_q4yc9r6', 'template-001', templateParams)
+                .then(function(response) {
+                    alert('Mensagem enviada com sucesso!', response.status, response.text);
+                }, function(error) {
+                    alert('Falha ao enviar a mensagem. Tente novamente.', error);
+                });
+        });
+    </script>
+</body>
+</html>
